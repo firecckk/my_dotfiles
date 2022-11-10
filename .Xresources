@@ -1,0 +1,33 @@
+xterm*faceName: Monospace
+xterm*faceSize: 15
+
+xterm*termName: xterm-256color
+
+xterm*foreground: #d0d0d0
+xterm*background: #272822
+
+xterm*color0: #303030
+xterm*color1: #d0d0d0
+xterm*color2: #66AA11
+xterm*color3: #c47f2c
+xterm*color4: #30309b
+xterm*color5: #7e40a5
+xterm*color6: #3579A8
+xterm*color7: #9999AA
+xterm*color8: #303030
+xterm*color9: #ff0090
+xterm*color10: #80FF00
+xterm*color11: #ffba68
+xterm*color12: #5f5fee
+xterm*color13: #bb88dd
+xterm*color14: #4eb4fa
+xterm*color15: #d0d0d0
+
+xterm*boldMode: true
+
+xterm*pointerColor: white
+xterm*pointerColorBackground: black
+xterm*cursorColor: yellow
+xterm*cursorBlink: true
+
+
