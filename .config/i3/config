@@ -1,3 +1,9 @@
+#
+# yoga 710 enable touchpad tap and natural scrolling function
+# xinput list-props "SynPS/2 Synaptics TouchPad"
+exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
+
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -34,6 +40,13 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# brightness adjust
+## https://askubuntu.com/questions/843103/i3wm-adjust-brightness-through-command-line
+bindsym XF86MonBrightnessUp exec echo $((`cat /sys/class/backlight/intel_backlight/brightness` + 10)) | sudo tee /sys/class/backlight/intel_backlight/brightness
+bindsym XF86MonBrightnessDown exec echo $((`cat /sys/class/backlight/intel_backlight/brightness` - 10)) | sudo tee /sys/class/backlight/intel_backlight/brightnes
+
+# set Mod key
+set $mod Mod4
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -42,81 +55,84 @@ set $down j
 set $left h
 set $right l
 
-# use Mouse+Mod1 to drag floating windows to their wanted position
-floating_modifier Mod1
+# use Mouse+$Mod to drag floating windows to their wanted position
+floating_modifier $Mod
 
 # start a terminal
-#bindsym Mod1+Return exec i3-sensible-terminal
-bindsym Mod1+Return exec hyper
+bindsym $Mod+Return exec i3-sensible-terminal
+#bindsym $Mod+Return exec hyper
 
 # kill focused window
-bindsym Mod1+q kill
+bindsym $Mod+q kill
 
 # start dmenu (a program launcher)
-#bindsym Mod1+d exec dmenu_run
-#bindsym Mod1+d exec --no-startup-id rofi -modi drun,run -show drun -font "DejaVu Sans 10" -show-icons
-bindsym Mod1+d exec --no-startup-id rofi -show drun -run-command "i3-msg exec '{cmd}'" -show-icons
+#bindsym $Mod+d exec dmenu_run
+#bindsym $Mod+d exec --no-startup-id rofi -modi drun,run -show drun -font "DejaVu Sans 10" -show-icons
+bindsym $Mod+Shift+Return exec --no-startup-id rofi -show drun -run-command "i3-msg exec '{cmd}'" -show-icons
+bindsym $Mod+w exec --no-startup-id rofi -show window -show-icons 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $Mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym Mod1+$left focus left
-bindsym Mod1+$down focus down
-bindsym Mod1+$up focus up
-bindsym Mod1+$right focus right
+bindsym $Mod+$left focus left
+bindsym $Mod+$down focus down
+bindsym $Mod+$up focus up
+bindsym $Mod+$right focus right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod1+Left focus left
-bindsym Mod1+Down focus down
-bindsym Mod1+Up focus up
-bindsym Mod1+Right focus right
+bindsym $Mod+Left focus left
+bindsym $Mod+Down focus down
+bindsym $Mod+Up focus up
+bindsym $Mod+Right focus right
 
 # move focused window
-bindsym Mod1+Shift+$left move left
-bindsym Mod1+Shift+$down move down
-bindsym Mod1+Shift+$up move up
-bindsym Mod1+Shift+$right move right
+bindsym $Mod+Shift+$left move left
+bindsym $Mod+Shift+$down move down
+bindsym $Mod+Shift+$up move up
+bindsym $Mod+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
+bindsym $Mod+Shift+Left move left
+bindsym $Mod+Shift+Down move down bindsym $Mod+Shift+Up move up
+bindsym $Mod+Shift+Right move right
 
 # split in horizontal orientation
-#bindsym Mod1+Shift+h split h
+bindsym $Mod+Shift+backslash split h
 
 # split in vertical orientation
-bindsym Mod1+Shift+v split v
+bindsym $Mod+backslash split v
 
 # enter fullscreen mode for the focused container
-bindsym Mod1+f fullscreen toggle
+bindsym $Mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod1+s layout stacking
-bindsym Mod1+w layout tabbed
-bindsym Mod1+e layout toggle split
+bindsym $Mod+s layout stacking
+bindsym $Mod+t layout tabbed
+bindsym $Mod+BackSpace layout toggle split
 
 # toggle tiling / floating
-bindsym Mod1+Shift+space floating toggle
+bindsym $Mod+Shift+semicolon floating toggle
 
 # change focus between tiling / floating windows
-bindsym Mod1+space focus mode_toggle
+bindsym $Mod+semicolon focus mode_toggle
 
 # focus the parent container
-bindsym Mod1+a focus parent
+bindsym $Mod+a focus parent
 
 # focus the child container
-#bindsym Mod1+d focus child
+bindsym $Mod+d focus child
+
+#
+#bindsym $mod+Tab workspace back_and_forth
 
 # move the currently focused window to the scratchpad
-bindsym Mod1+Shift+minus move scratchpad
+bindsym $Mod+Shift+slash move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym Mod1+minus scratchpad show
+bindsym $Mod+slash scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -132,36 +148,36 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym Mod1+1 workspace number $ws1
-bindsym Mod1+2 workspace number $ws2
-bindsym Mod1+3 workspace number $ws3
-bindsym Mod1+4 workspace number $ws4
-bindsym Mod1+5 workspace number $ws5
-bindsym Mod1+6 workspace number $ws6
-bindsym Mod1+7 workspace number $ws7
-bindsym Mod1+8 workspace number $ws8
-bindsym Mod1+9 workspace number $ws9
-bindsym Mod1+0 workspace number $ws10
+bindsym $Mod+1 workspace number $ws1
+bindsym $Mod+2 workspace number $ws2
+bindsym $Mod+3 workspace number $ws3
+bindsym $Mod+4 workspace number $ws4
+bindsym $Mod+5 workspace number $ws5
+bindsym $Mod+6 workspace number $ws6
+bindsym $Mod+7 workspace number $ws7
+bindsym $Mod+8 workspace number $ws8
+bindsym $Mod+9 workspace number $ws9
+bindsym $Mod+0 workspace number $ws10
 
 # move focused container to workspace
-bindsym Mod1+Shift+1 move container to workspace number $ws1
-bindsym Mod1+Shift+2 move container to workspace number $ws2
-bindsym Mod1+Shift+3 move container to workspace number $ws3
-bindsym Mod1+Shift+4 move container to workspace number $ws4
-bindsym Mod1+Shift+5 move container to workspace number $ws5
-bindsym Mod1+Shift+6 move container to workspace number $ws6
-bindsym Mod1+Shift+7 move container to workspace number $ws7
-bindsym Mod1+Shift+8 move container to workspace number $ws8
-bindsym Mod1+Shift+9 move container to workspace number $ws9
-bindsym Mod1+Shift+0 move container to workspace number $ws10
+bindsym $Mod+Shift+1 move container to workspace number $ws1
+bindsym $Mod+Shift+2 move container to workspace number $ws2
+bindsym $Mod+Shift+3 move container to workspace number $ws3
+bindsym $Mod+Shift+4 move container to workspace number $ws4
+bindsym $Mod+Shift+5 move container to workspace number $ws5
+bindsym $Mod+Shift+6 move container to workspace number $ws6
+bindsym $Mod+Shift+7 move container to workspace number $ws7
+bindsym $Mod+Shift+8 move container to workspace number $ws8
+bindsym $Mod+Shift+9 move container to workspace number $ws9
+bindsym $Mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
-bindsym Mod1+Shift+c reload
+bindsym $Mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Mod1+Shift+r restart
+bindsym $Mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $Mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -182,39 +198,52 @@ mode "resize" {
         bindsym Down          resize shrink height 10 px or 10 ppt
         bindsym Right       resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or Mod1+r
+	bindsym 1	floating enable; resize shrink width 10000px; resize grow width 1280px; resize shrink height 10000px; resize grow height 720px;
+	# back to normal: Enter or Escape or $Mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym Mod1+r mode "default"
+        bindsym $Mod+r mode "default"
 }
 
-bindsym Mod1+r mode "resize"
+bindsym $Mod+r mode "resize"
+
+## Screenshots
+# https://dev.to/dianjuar/i3wm-screenshot-shortcuts-3n7b
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/Screenshot.png"
+#bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
+#bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+
+## Clipboard Screenshots
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+#bindsym $Mod+Shift+s exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+#bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
+#bar {
 	#i3bar_command i3bar -t
         #status_command i3status
-}
+#}
 
 # Picom
 exec_always --no-startup-id picom --experimental-backend &
 ## for picom round corners
-default_border pixel 1
-default_floating_border pixel 1
+default_border pixel 0
+default_floating_border pixel 0
 #i3-msg [class=.*] border pixel 1
 
 # Wallpaper
-exec_always feh --bg-scale /home/ck/wallpaper.jpg
+exec_always feh --bg-scale /home/ck/wallpaper.png
 
 # Polybar
-exec_always --no-startup-id sh $HOME/.config/polybar/launch.sh
+#exec_always --no-startup-id sh $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id bash $HOME/.config/polybar/launch.sh --forest 
 
 #######################################
 # i3 gaps
-for_window [class="^.*"] border pixel 1
-gaps inner 10
-gaps outer 10
+for_window [class="^.*"] border pixel 0
+gaps inner 7
+gaps outer 7
 
 # Only enable gaps on a workspace when there is at least one container
 #smart_gaps on
