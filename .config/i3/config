@@ -82,10 +82,10 @@ bindsym $Mod+$up focus up
 bindsym $Mod+$right focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $Mod+Left focus left
-bindsym $Mod+Down focus down
-bindsym $Mod+Up focus up
-bindsym $Mod+Right focus right
+#bindsym $Mod+Left focus left
+#bindsym $Mod+Down focus down
+#bindsym $Mod+Up focus up
+#bindsym $Mod+Right focus right
 
 # move focused window
 bindsym $Mod+Shift+$left move left
@@ -94,9 +94,10 @@ bindsym $Mod+Shift+$up move up
 bindsym $Mod+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
-bindsym $Mod+Shift+Left move left
-bindsym $Mod+Shift+Down move down bindsym $Mod+Shift+Up move up
-bindsym $Mod+Shift+Right move right
+#bindsym $Mod+Shift+Left move left
+#bindsym $Mod+Shift+Down move down 
+#bindsym $Mod+Shift+Up move up
+#bindsym $Mod+Shift+Right move right
 
 # split in horizontal orientation
 bindsym $Mod+Shift+backslash split h
@@ -193,10 +194,10 @@ mode "resize" {
         bindsym $right      resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left        resize shrink width 10 px or 10 ppt
-        bindsym Up        resize grow height 10 px or 10 ppt
-        bindsym Down          resize shrink height 10 px or 10 ppt
-        bindsym Right       resize grow width 10 px or 10 ppt
+        #bindsym Left        resize shrink width 10 px or 10 ppt
+        #bindsym Up        resize grow height 10 px or 10 ppt
+        #bindsym Down          resize shrink height 10 px or 10 ppt
+        #bindsym Right       resize grow width 10 px or 10 ppt
 
 	bindsym 1	floating enable; resize shrink width 10000px; resize grow width 1280px; resize shrink height 10000px; resize grow height 720px;
 	# back to normal: Enter or Escape or $Mod+r
